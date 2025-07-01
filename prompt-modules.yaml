@@ -45,35 +45,6 @@ core:
       - Context:
     tags: [logic]
     stage: 3
-  - id: structure__separate_instruction_context__v1
-    name: separate_instruction_context
-    goal: Separate commands from language context.
-    prompt_template: |
-      너는 정보를 구조화하는 전문가야.
-      주어진 "지시어 목록"을 읽고, AI가 직접 수행해야 할 "명령어(Instructions)" 부분과, AI가 참고해야 할 "배경 정보(Context)" 부분으로 명확하게 분리해줘.
-
-      입력된 지시어 목록:
-      {{input}}
-
-      분리된 결과:
-      - Instructions:
-      - Context:
-    tags: [logic]
-    stage: 3
-  - id: logic__optimize_expression__v1
-    name: optimize_prompt_logic
-    goal: Clean and normalize prompt logic.
-    prompt_template: |
-      너는 최고의 프롬프트 엔지니어다.
-      아래의 "분리된 결과"를 보고, "명령어(Instructions)" 부분을 더 명확하고, 간결하며, AI가 오해 없이 실행할 수 있도록 최적화해줘.
-      불필요한 표현은 제거하고, 각 명령어가 단일 책임을 갖도록 다듬어줘.
-
-      입력된 분리 결과:
-      {{input}}
-
-      최적화된 명령어:
-    tags: [logic]
-    stage: 4
   - id: logic__optimize_expression__v1
     name: optimize_prompt_logic
     goal: Clean and normalize prompt logic.
@@ -162,11 +133,46 @@ meta_simulation:
 export_modules:
   - id: export__final_prompt_yaml__v1
     name: export_final_prompt_module
+    prompt_template: |
+      너는 여러 부서의 보고서를 취합하여 최종 결과 보고서를 작성하는 최고의 아키비스트다.
+      아래 "워크플로우 전체 결과" JSON을 입력받아서, 'Instructions', 'Context', 'Examples' 섹션을 포함하는 완결된 프롬프트 YAML 파일 초안을 작성해줘.
+
+      "워크플로우 전체 결과":
+      ```json
+      {{input}}
+      ```
+
+      "최종 프롬프트 YAML":
+    goal: Output final YAML or .gpt-config.json
+    tags: [export]
+    stage: 7
+  - id: export__final_prompt_yaml__v1
+    name: export_final_prompt_module
+    prompt_template: |
+      너는 여러 부서의 보고서를 취합하여 최종 결과 보고서를 작성하는 최고의 아키비스트다.
+      아래 "워크플로우 전체 결과" JSON을 입력받아서, 'Instructions', 'Context', 'Examples' 섹션을 포함하는 완결된 프롬프트 YAML 파일 초안을 작성해줘.
+
+      "워크플로우 전체 결과":
+      ```json
+      {{input}}
+      ```
+
+      "최종 프롬프트 YAML":
     goal: Output final YAML or .gpt-config.json
     tags: [export]
     stage: 7
   - id: export__gpt_market_config__v1
     name: Export GPT Builder Config
+    prompt_template: |
+      너는 프롬프트를 GPTs 마켓플레이스 규격에 맞는 `.gpt-config.json` 파일로 변환하는 전문 도구다.
+      주어진 "최종 프롬프트 YAML" 내용을 분석해서, `instructions`, `conversation_starters`, `prompt_starters` 등의 필드를 가진 JSON 객체로 변환해줘.
+
+      "최종 프롬프트 YAML":
+      ```yaml
+      {{input}}
+      ```
+
+      "변환된 .gpt-config.json":
     goal: Generate .gpt-config.json for marketplace use.
     tags: [export, gpt_builder]
     stage: 7
