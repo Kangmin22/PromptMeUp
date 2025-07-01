@@ -1,0 +1,9 @@
+// Node REPL 또는 scripts/save-prompt.js로 실행
+const { kv } = require('@vercel/kv');
+const prompt = "Tell me a short joke in {{language}}.";
+const encoded = Buffer.from(prompt, 'utf-8').toString('base64');
+kv.set('prompt:short-joke:v1.0.0', {
+  content: encoded,
+  versionTag: 'v1.0.0',
+  metadata: { execution_mode: 'ai_generation' }
+});

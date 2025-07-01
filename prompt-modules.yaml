@@ -1,0 +1,194 @@
+# PromptMeUp 모듈 라이브러리 v1
+
+core:
+  - id: input__core_extract__v1
+    name: extract_core_elements
+    goal: Extract GPT purpose, features, and constraints from user input.
+    prompt_template: |
+      너는 사용자의 아이디어를 분석해서 AI의 핵심 기능, 목표, 제약조건을 뽑아내는 전문가야.
+      다음 사용자의 아이디어를 분석해서 아래 JSON 형식에 맞춰 핵심 요소를 추출해줘.
+
+      사용자 아이디어:
+      "{{input}}"
+
+      추출 결과(JSON):
+    tags: [input, parser]
+    stage: 1
+  - id: logic__directive_translate__v1
+    name: translate_to_directives
+    goal: Convert extracted needs into executable instructions.
+    prompt_template: |
+      너는 AI 프롬프트 설계 전문가다.
+      아래의 "추출된 핵심 요소" JSON을 보고, AI가 따라야 할 명확하고 구체적인 "지시어 목록"으로 변환해줘.
+      각 지시어는 AI의 역할, 주요 작업, 따라야 할 규칙을 명시해야 한다.
+
+      추출된 핵심 요소:
+      ```json
+      {{input}}
+      ```
+
+      변환된 지시어 목록:
+    tags: [logic]
+    stage: 2
+  - id: structure__separate_instruction_context__v1
+    name: separate_instruction_context
+    goal: Separate commands from language context.
+    prompt_template: |
+      너는 정보를 구조화하는 전문가야.
+      주어진 "지시어 목록"을 읽고, AI가 직접 수행해야 할 "명령어(Instructions)" 부분과, AI가 참고해야 할 "배경 정보(Context)" 부분으로 명확하게 분리해줘.
+
+      입력된 지시어 목록:
+      {{input}}
+
+      분리된 결과:
+      - Instructions:
+      - Context:
+    tags: [logic]
+    stage: 3
+  - id: structure__separate_instruction_context__v1
+    name: separate_instruction_context
+    goal: Separate commands from language context.
+    prompt_template: |
+      너는 정보를 구조화하는 전문가야.
+      주어진 "지시어 목록"을 읽고, AI가 직접 수행해야 할 "명령어(Instructions)" 부분과, AI가 참고해야 할 "배경 정보(Context)" 부분으로 명확하게 분리해줘.
+
+      입력된 지시어 목록:
+      {{input}}
+
+      분리된 결과:
+      - Instructions:
+      - Context:
+    tags: [logic]
+    stage: 3
+  - id: logic__optimize_expression__v1
+    name: optimize_prompt_logic
+    goal: Clean and normalize prompt logic.
+    prompt_template: |
+      너는 최고의 프롬프트 엔지니어다.
+      아래의 "분리된 결과"를 보고, "명령어(Instructions)" 부분을 더 명확하고, 간결하며, AI가 오해 없이 실행할 수 있도록 최적화해줘.
+      불필요한 표현은 제거하고, 각 명령어가 단일 책임을 갖도록 다듬어줘.
+
+      입력된 분리 결과:
+      {{input}}
+
+      최적화된 명령어:
+    tags: [logic]
+    stage: 4
+  - id: logic__optimize_expression__v1
+    name: optimize_prompt_logic
+    goal: Clean and normalize prompt logic.
+    prompt_template: |
+      너는 최고의 프롬프트 엔지니어다.
+      아래의 "분리된 결과"를 보고, "명령어(Instructions)" 부분을 더 명확하고, 간결하며, AI가 오해 없이 실행할 수 있도록 최적화해줘.
+      불필요한 표현은 제거하고, 각 명령어가 단일 책임을 갖도록 다듬어줘.
+
+      입력된 분리 결과:
+      {{input}}
+
+      최적화된 명령어:
+    tags: [logic]
+    stage: 4
+  - id: example_generator__positive_negative__v1
+    name: generate_positive_negative_examples
+    goal: Provide 1 positive and 1 negative example.
+    prompt_template: |
+      너는 AI의 행동을 교정하는 최고의 교사다.
+      주어진 "명령어"를 보고, 그 명령어의 의도에 맞는 "좋은 사용자 요청 예시"와 의도에 맞지 않는 "나쁜 사용자 요청 예시"를 각각 1개씩 생성해야 한다.
+
+      **규칙:**
+      - 반드시 "- Positive Example:"과 "- Negative Example:"이라는 두 개의 항목만 생성해야 한다.
+      - 각 예시는 사용자가 실제로 말할 법한 대화체 문장이어야 한다.
+      - 다른 부가 설명은 절대 추가하지 마라.
+
+      ## 모범 답안 예시 ##
+      입력된 명령어:
+      - 역할: 여행 계획 전문가
+      - 임무: 사용자의 예산과 스타일에 맞는 여행 계획 초안 생성
+      - 규칙: 항공편과 숙소는 제외
+
+      생성된 예시:
+      - Positive Example: "20대 커플, 5일간 파리 여행, 예산 200만원으로 감성 카페랑 미술관 위주로 짜줘."
+      - Negative Example: "파리 비행기표 좀 알아봐줘."
+      ---
+
+      이제 아래 명령어를 보고 위 예시와 규칙을 완벽하게 따라서 예시를 생성해라.
+
+      명령어:
+      {{input}}
+
+      생성된 예시:
+    tags: [example]
+    stage: 4
+  - id: validation__conflict_detector__v1
+    name: detect_logical_conflicts
+    goal: Detect contradictions and prompt clarification.
+    tags: [validation]
+    stage: 6
+  - id: validation__step_dependency__v1
+    name: step_dependency_validation
+    goal: Ensure logical input/output flow across steps.
+    tags: [validation]
+    stage: 6
+
+builder_extensions:
+  - id: file_input_parser
+    name: Parse from Uploaded File
+    goal: Extract prompt ideas from uploaded user documents.
+    tags: [input, gpt_builder]
+    stage: 0
+  - id: dynamic_web_reference
+    name: Fetch Real-Time Context
+    goal: Use web search to add contextual examples or references.
+    tags: [context, gpt_builder]
+    stage: 1
+  - id: reusable_snippet_loader
+    name: Load Common LangScript Blocks
+    goal: Insert reusable GPT prompt blocks.
+    tags: [modular, gpt_builder]
+    stage: 4
+
+meta_simulation:
+  - id: simulate__final_prompt_execution__v1
+    name: simulate_and_validate
+    goal: Run logic simulation and return issue–cause–fix report.
+    tags: [simulation]
+    stage: 6
+  - id: preview__final_output_viewer__v1
+    name: preview_final_output_block
+    goal: Show preview of final LangScript YAML.
+    tags: [preview]
+    stage: 6
+
+export_modules:
+  - id: export__final_prompt_yaml__v1
+    name: export_final_prompt_module
+    goal: Output final YAML or .gpt-config.json
+    tags: [export]
+    stage: 7
+  - id: export__gpt_market_config__v1
+    name: Export GPT Builder Config
+    goal: Generate .gpt-config.json for marketplace use.
+    tags: [export, gpt_builder]
+    stage: 7
+  - id: builder__gpt_market_packager__v1
+    name: export_gpt_market_bundle
+    goal: Bundle config, title, thumbnail for GPT market.
+    tags: [export, gpt_builder]
+    stage: 7
+
+advanced_modules:
+  - id: ux__user_role_switcher__v1
+    name: User Role Switcher
+    goal: Adjust UX, terminology, and guidance based on user role.
+    tags: [ux, personalization]
+    stage: 0
+  - id: simulate__error_response_cases__v1
+    name: Error Case Simulator
+    goal: Generate and test how prompts behave under failure or invalid input scenarios.
+    tags: [simulation, robustness]
+    stage: 6
+  - id: structure__context_inheritance__v1
+    name: Context Inheritance Engine
+    goal: Reuse context, tone, and constraints across related GPTs.
+    tags: [structure, metadata]
+    stage: 3

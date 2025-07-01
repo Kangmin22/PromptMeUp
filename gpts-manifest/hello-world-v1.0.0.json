@@ -1,0 +1,7 @@
+{
+  "name": "hello-world",
+  "description": "샘플",
+  "instructions": "Hello, {{name}}!",
+  "version": "v1.0.0",
+  "author": "PromptMeUp"
+}
