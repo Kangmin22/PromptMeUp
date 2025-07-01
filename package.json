@@ -8,8 +8,9 @@
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "generate-embeddings": "node scripts/generate-embeddings.js",
     "test-loader": "node scripts/test-loader.js",
-    "test-orchestrator": "node scripts/test-orchestrator.js"
-    
+    "test-orchestrator": "node scripts/test-orchestrator.js",
+    "replay": "node scripts/replay.js",
+    "search": "node scripts/search.js"
   },
   "keywords": [],
   "author": "",
@@ -18,10 +19,11 @@
     "@google/generative-ai": "^0.15.0",
     "@vercel/blob": "^0.23.4",
     "@vercel/kv": "^1.0.1",
+    "@xenova/transformers": "^2.17.2",
     "joi": "^17.13.1",
     "js-yaml": "^4.1.0",
     "openai": "^4.52.7",
-    "@xenova/transformers": "^2.17.2"
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.24.9",

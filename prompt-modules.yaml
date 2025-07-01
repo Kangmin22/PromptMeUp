@@ -198,3 +198,20 @@ advanced_modules:
     goal: Reuse context, tone, and constraints across related GPTs.
     tags: [structure, metadata]
     stage: 3
+    advanced_modules:
+  - id: meta__auto_tagger__v1
+    name: Auto Tagger
+    goal: Generate relevant tags and a category for the prompt.
+    prompt_template: |
+      너는 콘텐츠를 분석하고 핵심 태그를 추출하는 분류 전문가다.
+      주어진 "프롬프트 최종 YAML" 내용을 보고, 이 프롬프트의 핵심 주제를 나타내는 태그(tags) 3~5개와, 가장 적합한 카테고리(category) 1개를 JSON 형식으로 생성해줘.
+
+      "프롬프트 최종 YAML":
+      ```yaml
+      {{input}}
+      ```
+
+      "생성된 태그와 카테고리 (JSON)":
+    tags: [meta, classification]
+    stage: 8
+  - id: ux__user_role_switcher__v1

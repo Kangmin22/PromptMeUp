@@ -14,16 +14,16 @@ const simpleWorkflow = [
   'logic__optimize_expression__v1',
   'example_generator__positive_negative__v1',
   'export__final_prompt_yaml__v1',
-  'export__gpt_market_config__v1' // GPTs 마켓용 변환 단계 추가
+  'meta__auto_tagger__v1' // 자동 태깅 단계 추가
 ];
 
 async function main() {
-  console.log('--- GPTs 패키지 생성 전체 워크플로우 테스트 ---');
+  console.log('--- 자동 태깅 포함 전체 워크플로우 테스트 ---');
   console.log('사용자 입력:', userInput);
   try {
-    const finalPackage = await runWorkflow(simpleWorkflow, userInput);
-    console.log('\n--- 🚀 최종 완제품 (GPTs 마켓플레이스용 JSON) ---');
-    console.log(finalPackage);
+    const finalTags = await runWorkflow(simpleWorkflow, userInput);
+    console.log('\n--- 🚀 최종 완제품 (자동 생성된 태그) ---');
+    console.log(finalTags);
   } catch (error) {
     console.error('\n--- 워크플로우 실행 중 오류 발생 ---');
     console.error(error.message);
