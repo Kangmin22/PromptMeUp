@@ -1,4 +1,4 @@
-// scripts/test-orchestrator.js
+// scripts/export-markdown.js
 import dotenv from 'dotenv';
 dotenv.config({ path: '.env.development.local' });
 
@@ -13,18 +13,17 @@ const workflow = [
   'logic__optimize_expression__v1',
   'example_generator__positive_negative__v1',
   'validation__conflict_detector__v1',
-  'export__final_prompt_yaml__v1',
-  'meta__auto_tagger__v1'
+  'export__markdown_table__v1' 
 ];
 
 async function main() {
-  console.log('--- 최종 프롬프트 생성 및 등록 워크플로우 ---');
+  console.log('--- Markdown 테이블 Export 워크플로우 ---');
   console.log('사용자 입력:', userInput);
   try {
-    // 최종 목표는 '등록'이라고 명시적으로 전달
-    const finalResult = await runWorkflow(workflow, userInput, 'register_and_embed');
-    console.log('\n--- 🚀 최종 등록된 프롬프트 정보 ---');
-    console.dir(finalResult, { depth: null });
+    // 최종 목표는 'Markdown 테이블 생성'이라고 명시적으로 전달
+    const finalMarkdown = await runWorkflow(workflow, userInput, 'export__markdown_table__v1');
+    console.log('\n--- 🚀 최종 완제품 (Markdown 테이블) ---');
+    console.log(finalMarkdown);
   } catch (error) {
     console.error('\n--- 워크플로우 실행 중 오류 발생 ---');
     console.error(error.message);

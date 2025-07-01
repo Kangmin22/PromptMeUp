@@ -10,7 +10,8 @@
     "test-loader": "node scripts/test-loader.js",
     "test-orchestrator": "node scripts/test-orchestrator.js",
     "replay": "node scripts/replay.js",
-    "search": "node scripts/search.js"
+    "search": "node scripts/search.js",
+    "export-markdown": "node scripts/export-markdown.js"
   },
   "keywords": [],
   "author": "",
