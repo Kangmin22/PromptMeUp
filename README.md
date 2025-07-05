@@ -28,7 +28,7 @@ The quantitative difference in the loss value translates to a stark visual diffe
 
 | Standard Loss Model Output | Geometric Loss Model Output |
 | :---: | :---: |
-| ![A noisy and incomplete 3D shape](https://placehold.co/400x300/fca5a5/450a0a?text=Noisy+%26+Incomplete%0AOutput) | ![A smooth and complete 3D shape](https://placehold.co/400x300/86efac/14532d?text=Smooth+%26+Complete%0AOutput) |
+| ![A noisy and incomplete 3D shape](https://i.imgur.com/VpB29h1.png) | ![A smooth and complete 3D shape](https://i.imgur.com/aG3b3eR.png) |
 | *The standard model produces a noisy, crumpled, and structurally flawed point cloud.* | *The geometric model produces a smooth, coherent, and geometrically plausible shape.* |
 
 ---
@@ -72,7 +72,7 @@ The geometric loss function fundamentally reshapes the high-dimensional optimiza
 | Standard Landscape | Geometric Landscape |
 | :---: | :---: |
 | **A Rugged, Deceptive Terrain** | **A Smooth, Direct Path** |
-| ![Diagram of a rugged path leading to a local minimum](https://placehold.co/400x200/fecaca/b91c1c?text=Rugged+Path+to%0ALocal+Minimum+%E2%9D%8C) | ![Diagram of a smooth path leading to the global minimum](https://placehold.co/400x200/dcfce7/16a34a?text=Smooth+Path+to%0AGlobal+Minimum+%E2%9C%85) |
+| ![Diagram of a rugged path leading to a local minimum](https://i.imgur.com/VpB29h1.png) | ![Diagram of a smooth path leading to the global minimum](https://i.imgur.com/aG3b3eR.png) |
 
 -   **Standard Landscape:** Rugged and deceptive, full of small valleys (local minima) that trap the optimizer. The path to a good solution is fraught with peril.
 -   **Geometric Landscape:** The Laplacian term "smooths over" these deceptive valleys, creating a clearer, more direct path to the true global minimum.
